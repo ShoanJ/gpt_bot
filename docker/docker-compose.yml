@@ -1,0 +1,29 @@
+version: "3"
+services:
+    mongo6:
+        image: docker.io/library/mongo:6.0.5
+        container_name: mongo6
+        restart: always
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: 123456
+    gpt_bot:
+        image: docker.io/library/golang:1.19.7
+        working_dir: /workspace
+        ports:
+          - "80:80"
+        volumes:
+          - ..:/workspace
+          - ~/conf:/workspace/conf
+        container_name: gpt_bot
+        depends_on:
+          - mongo6
+        links:
+          - mongo6
+        environment:
+          PATH: $PATH:/usr/local/go/bin
+          CONF_PATH: /workspace/conf/gpt_bot.yaml
+        tty: true
+        command:
+          - /bin/bash
+          - ./docker/run.sh

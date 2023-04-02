@@ -16,7 +16,7 @@ const (
 	// RemainTime 最早保存半小时内的上下文
 	RemainTime = 1800
 	// ChatContentsMaxLen 最多保存的对话条数
-	ChatContentsMaxLen = 3
+	ChatContentsMaxLen = 5
 )
 
 func AppendChatsToChatCtx(ctx context.Context, chats []*model.ChatContent, fromUser bool) (*model.UserProfile, error) {
